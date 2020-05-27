@@ -1,4 +1,8 @@
-# PoolTogether V2 Contracts
+# PoolTogether V2 Contracts 
+
+In progress:
+
+Working on adding aTokens support
 
 [![CircleCI](https://circleci.com/gh/pooltogether/pooltogether-contracts.svg?style=svg)](https://circleci.com/gh/pooltogether/pooltogether-contracts)
 [![built-with openzeppelin](https://img.shields.io/badge/built%20with-OpenZeppelin-3677FF)](https://docs.openzeppelin.com/)
