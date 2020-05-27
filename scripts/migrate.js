@@ -13,32 +13,32 @@ async function migrate(context, ozNetworkName, ozOptions = '') {
   const project = new Project('.oz-migrate')
   const migration = await project.migrationForNetwork(ozNetworkName)
 
-  let cSai
-  if (ozNetworkName === 'rinkeby') {
-    throw new Error('cSai not avilable on rinkeby')
+  // let cSai
+  // if (ozNetworkName === 'rinkeby') {
+  //   throw new Error('cSai not avilable on rinkeby')
+  // } else if (ozNetworkName === 'kovan') {
+  //   cSai = '0x63c344bf8651222346dd870be254d4347c9359f7'
+  // } else { // assume mainnet
+  //   cSai = '0xf5dce57282a584d2746faf1593d3121fcac444dc'
+  // }
+
+  let aUsdc
+  if (ozNetworkName === 'ropsten') {
+    aUsdc = '0x2dB6a31f973Ec26F5e17895f0741BB5965d5Ae15'
   } else if (ozNetworkName === 'kovan') {
-    cSai = '0x63c344bf8651222346dd870be254d4347c9359f7'
+    aUsdc = '0x02F626c6ccb6D2ebC071c068DC1f02Bf5693416a'
   } else { // assume mainnet
-    cSai = '0xf5dce57282a584d2746faf1593d3121fcac444dc'
+    aUsdc = '0x9bA00D6856a4eDF4665BcA2C2309936572473B7E'
   }
 
-  let cUsdc
-  if (ozNetworkName === 'rinkeby') {
-    throw new Error("cUsdc is avilable on rinkeby but don't use Rinkeby, use Kovan")
+  let aDai, scdMcdMigration
+  if (ozNetworkName === 'ropsten') {
+    aDai = '0xcB1Fe6F440c49E9290c3eb7f158534c2dC374201'
   } else if (ozNetworkName === 'kovan') {
-    cUsdc = '0xcfc9bb230f00bffdb560fce2428b4e05f3442e35'
-  } else { // assume mainnet
-    cUsdc = '0x39aa39c021dfbae8fac545936693ac917d5e7563'
-  }
-
-  let cDai, scdMcdMigration
-  if (ozNetworkName === 'rinkeby') {
-    cDai = '0x6d7f0754ffeb405d23c51ce938289d4835be3b14'
-  } else if (ozNetworkName === 'kovan') {
-    cDai = '0xe7bc397dbd069fc7d0109c0636d06888bb50668c'
+    aDai = '0x58AD4cB396411B691A9AAb6F74545b2C5217FE6a'
     scdMcdMigration = '0x411b2faa662c8e3e5cf8f01dfdae0aee482ca7b0'
   } else { //assume mainnet
-    cDai = '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643'
+    aDai = '0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d'
     scdMcdMigration = '0xc73e0383f3aff3215e6f04b0331d58cecf0ab849'
   }
 
@@ -84,7 +84,7 @@ async function migrate(context, ozNetworkName, ozOptions = '') {
   console.log(chalk.green('Starting DAI'))
 
   await migration.migrate(40, async () => {
-    runShell(`oz create PoolDai ${ozOptions} --network ${ozNetworkName} --init init --args '${ownerWallet.address},${cDai},${feeFraction},${ownerWallet.address},${lockDuration},${cooldownDuration}'`)
+    runShell(`oz create PoolDai ${ozOptions} --network ${ozNetworkName} --init init --args '${ownerWallet.address},${aDai},${feeFraction},${ownerWallet.address},${lockDuration},${cooldownDuration}'`)
     context.reload()
   })
 
@@ -113,7 +113,7 @@ async function migrate(context, ozNetworkName, ozOptions = '') {
   console.log(chalk.green('Starting USDC'))
 
   await migration.migrate(65, async () => {
-    runShell(`oz create PoolUsdc ${ozOptions} --network ${ozNetworkName} --init init --args '${ownerWallet.address},${cUsdc},${feeFraction},${ownerWallet.address},${lockDuration},${cooldownDuration}'`)
+    runShell(`oz create PoolUsdc ${ozOptions} --network ${ozNetworkName} --init init --args '${ownerWallet.address},${aUsdc},${feeFraction},${ownerWallet.address},${lockDuration},${cooldownDuration}'`)
     context.reload()
   })
 
