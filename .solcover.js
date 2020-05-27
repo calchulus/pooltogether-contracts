@@ -2,6 +2,7 @@ module.exports = {
   mocha: { reporter: 'mocha-junit-reporter' },
   skipFiles: [
     "compound/ICErc20.sol",
+    "aave/aToken.sol",
     "test/maker/MockJoinLike.sol",
     "test/maker/MockScdMcdMigration.sol",
     "test/CErc20Mock.sol",
