@@ -54,13 +54,13 @@ contract MCDAwarePool is BasePool, IERC777Recipient {
   /**
    * @notice Initializes the contract.
    * @param _owner The initial administrator of the contract
-   * @param _cToken The Compound cToken to bind this Pool to
+   * @param _aToken The Aave aToken to bind this Pool to
    * @param _feeFraction The fraction of the winnings to give to the beneficiary
    * @param _feeBeneficiary The beneficiary who receives the fee
    */
   function init (
     address _owner,
-    address _cToken,
+    address _aToken,
     uint256 _feeFraction,
     address _feeBeneficiary,
     uint256 lockDuration,
@@ -68,7 +68,7 @@ contract MCDAwarePool is BasePool, IERC777Recipient {
   ) public initializer {
     super.init(
       _owner,
-      _cToken,
+      _aToken,
       _feeFraction,
       _feeBeneficiary,
       lockDuration,
